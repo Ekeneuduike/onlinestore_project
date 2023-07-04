@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+
+
+  promtail:
+    image: grafana/promtail:main-d1fd6b7
+    depends_on:
+      - loki
+    ports:
+      - "9080:9080"

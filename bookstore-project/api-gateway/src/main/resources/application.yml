@@ -1,0 +1,56 @@
+server:
+  port: 8081
+spring:
+  # eureka client config
+  eureka:
+    client:
+      serviceUrl:
+        defaultZOne: localhost:8761/eureka/
+  # application name
+  application:
+    name: api-gateway
+    # gateway config for services
+  cloud:
+    gateway:
+      routes:
+        # for product server 1
+      - id: product-server
+        uri: http://product-server
+        predicates:
+        - Path=/api/product
+        # for user server 2
+      - id: user-server
+        uri: http://user-server
+        predicates:
+        - Path=/api/user
+        # for inventory server 3
+      - id: inventory-server
+        uri: http://inventory-server
+        predicates:
+        - Path=/api/inventory
+        # for notification server 4
+      - id: notification-server
+        uri: http://notifiaction-server
+        predicates:
+        - Path=/api/notification
+        # for discover server 5
+      - id: discovery-server
+        uri: http://localhost:8761
+        predicates:
+        - Path=/eureka/web
+        # for discovery server static properties 6
+      - id: discovery-server-static
+        uri: http://localhost:8761
+        predicates:
+        - Path=/eureka/***
+        # for order server 7
+      - id: order-server
+        uri: http://order-server
+        predicates:
+        - Path=/api/order
+        # for payment server 8
+      - id: payment-server
+        uri: http://payment-server
+        predicates:
+        - Path=/api/payment
+

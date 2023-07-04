@@ -1,0 +1,56 @@
+
+spring:
+  application:
+    name: user-server
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user
+    username: postgres
+    password: mylove4u
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  main:
+    web-application-type: servlet
+
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+  kafka:
+    bootstrap-servers: kafka://localhost:29092
+
+# spring actuator config
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "beans,env"
+  endpoint:
+    health:
+      show-details: always
+      exclude: "db,diskSpace"
+
+  # circuit breaker instance info
+  resilience4j:
+    circuitbreaker:
+      instances:
+        UserServer:
+          registerHealthIndicator: ture
+          eventConsumerBufferSize: 10
+          failureRateThreshold: 50
+          minimumNumberOfCalls: 5
+          automaticTransitionFromOpenToHalfOpen: true
+          waitDurationInOpenState: 10s
+          permittedNumberOfCallsInHalfOpenState: 3
+          slidingWindowSize: 20
+          slidingWindowType: Count_Based

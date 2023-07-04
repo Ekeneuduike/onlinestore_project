@@ -1,0 +1,17 @@
+services:
+  images:
+    loki:
+      images: grafana/loki:2.80
+      ports:
+        - "3100:3100"
+      #target: C:\Users\ekene\Desktop\bookstore-project\bookstore-project\loki-config.yaml
+      volumes:
+        - loki-config:loki-config.yaml
+
+    promtail:
+      images: grafana/promtail:latest
+      ports:
+        - "9080:9080"
+      #target: C:\Users\ekene\Desktop\bookstore-project\bookstore-project\promtail-docker-config.yml
+      volumes:
+        - promtail-docker-config.yml:promtail-docker-config.yml

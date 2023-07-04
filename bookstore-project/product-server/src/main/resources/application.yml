@@ -1,0 +1,56 @@
+
+# server port
+server:
+  port: 8087
+
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: password
+      database: product
+      uri: mongodb://root:password@localhost:27017
+
+  #eureka config
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: localhost:8761/eureka
+
+ # application name
+  application:
+    name: product-server
+ # kafka configuration
+  kafka:
+    bootstrap-servers: kafka://localhost:29092
+  # spring actuator
+management:
+  health:
+    diskSpace:
+      enabled: false
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+    health:
+      show-details: always
+  # spring resilience4j config
+#  resilience4j.circuitbreaker:
+#    configs:
+#      default:
+#        registerHealthIndicator: true
+#        slidingWindowSize: 50
+#    instances:
+#      product:
+#        registerHealthIndicator: true
+#        failureRateThreshold: 50
+#        minimumNumberOfCalls: 5
+#        automaticTransitionFromOpenToHalfOpenState: true
+#        permittedNumberOfCallsINHalfOpenState: 3
+#        waitDurationInHalfOpenState: 10s
+#        slidingWindowType: TIME_BASED
+#        slidingWindowSize: 10

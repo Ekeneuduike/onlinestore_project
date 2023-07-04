@@ -1,0 +1,17 @@
+server:
+  port: 8083
+
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: password
+      uri: mongodb://root:password@localhost:27017
+      database: inventory
+  application:
+    name: inventory-server
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: localhost:8761/eureka/
